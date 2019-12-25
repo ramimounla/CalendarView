@@ -1,0 +1,8 @@
+.recurring {
+    background-color: red;
+    color: yellow;
+    padding: 10px;
+    border: 0px;
+    background: url("http://nicolasgallagher.com/css-background-image-hacks/demo/transform-sprite.png");
+    
+}
