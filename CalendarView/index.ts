@@ -67,7 +67,7 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 					title: appointmentsRecordSet.records[recordId].getValue("Subject").toString(), // a property!
 					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"), 
 					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"),
-					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString()
+					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ","-")
 				});
 
 				
