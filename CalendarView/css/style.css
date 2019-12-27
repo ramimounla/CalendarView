@@ -1,8 +1,26 @@
 .recurring {
-    background-color: red;
-    color: yellow;
+    background-color: #00ad4e;
+    color: white;
     padding: 10px;
     border: 0px;
-    background: url("http://nicolasgallagher.com/css-background-image-hacks/demo/transform-sprite.png");
+    /* background: url("http://nicolasgallagher.com/css-background-image-hacks/demo/transform-sprite.png"); */
     
 }
+
+.urgent {
+    background-color: #FB5923;
+    color: white;
+    padding: 10px;
+    border: 0px;
+    /* background: url("http://nicolasgallagher.com/css-background-image-hacks/demo/transform-sprite.png"); */
+    
+}
+
+.stage-gate {
+    background-color: #497bbe;
+    color: white;
+    padding: 10px;
+    border: 0px;
+    /* background: url("http://nicolasgallagher.com/css-background-image-hacks/demo/transform-sprite.png"); */
+}
+

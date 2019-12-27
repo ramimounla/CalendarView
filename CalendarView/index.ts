@@ -1,13 +1,15 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import DataSetInterfaces = ComponentFramework.PropertyHelper.DataSetApi;
-import { Calendar } from '@fullcalendar/core';
+import { Calendar, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-
+import 'moment'
+import moment = require("moment");
 type DataSet = ComponentFramework.PropertyTypes.DataSet;
 
 export class CalendarView implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
 	private _divCalendar: HTMLDivElement;
+	private _calendar: Calendar;
 
 	/**
 	 * Empty constructor.
@@ -29,20 +31,20 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 		this._divCalendar = document.createElement("div");
 		this._divCalendar.id = "calendar";
 
-		let calendar = new Calendar(this._divCalendar, {
+		this._calendar = new Calendar(this._divCalendar, {
 			plugins: [dayGridPlugin],
 			defaultView: 'dayGridMonth',
 			firstDay: 1
 		});
 
-		calendar.addEvent({ // this object will be "parsed" into an Event Object
-			title: 'Business Review', // a property!
-			start: '2019-12-27 16:00:00', // a property!
-			end: '2019-12-27', // a property! ** see important note below about 'end' **
-			className: "recurring"
-		});
+		// _calendar.addEvent({ // this object will be "parsed" into an Event Object
+		// 	title: 'Business Review', // a property!
+		// 	start: '2019-12-27 16:00:00', // a property!
+		// 	end: '2019-12-27', // a property! ** see important note below about 'end' **
+		// 	className: "recurring"
+		// });
 
-		calendar.render();
+		this._calendar.render();
 
 		container.appendChild(this._divCalendar);
 	}
@@ -54,6 +56,64 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 	 */
 	public updateView(context: ComponentFramework.Context<IInputs>): void {
 		// Add code to update control view
+
+
+		if (!context.parameters.appointmentsDataSet.loading) {
+
+			let appointmentsRecordSet = context.parameters.appointmentsDataSet;
+
+			appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
+				this._calendar.addEvent({
+					title: appointmentsRecordSet.records[recordId].getValue("Subject").toString(), // a property!
+					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"), 
+					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"),
+					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString()
+				});
+
+				
+				// // this._calendar.addEvent({ // this object will be "parsed" into an Event Object
+				// // 	title: 'Business Review', // a property!
+				// // 	start: '2019-12-27', // a property!
+				// // 	end: '2019-12-27', // a property! ** see important note below about 'end' **
+				// // 	className: "recurring"
+				// // });
+				// 	if (column.name == "tag") {
+				// 		var tagDiv = <HTMLSpanElement>document.createElement("div");
+				// 		tagDiv.className = "tags";
+				// 		var tags = (<string>recordSet.records[recordId].getValue(column.name)).split(";");
+
+				// 		tags.forEach(tag => {
+				// 			var tagSpan = <HTMLSpanElement>document.createElement("span");
+				// 			tagSpan.className = "tag";
+				// 			tagSpan.innerText = tag;
+
+				// 			if (tag == "urgent")
+				// 				tagSpan.style.background = "#E51400";
+				// 			if (tag == "blocked")
+				// 				tagSpan.style.background = "#FF9642";
+				// 			if (tag == "green")
+				// 				tagSpan.style.background = "#668D3C";
+				// 			if (tag == "stage gate")
+				// 				tagSpan.style.background = "#007996";
+
+				// 			tagDiv.appendChild(tagSpan);
+				// 		});
+
+				// 		recordDiv.appendChild(tagDiv);
+				// 	}
+				// 	else {
+				// 		var span = <HTMLSpanElement>document.createElement("span");
+				// 		span.className = "element";
+				// 		span.innerText = <string>recordSet.records[recordId].getValue(column.name);
+				// 		recordDiv.appendChild(span);
+				// 	}
+
+				// });
+			});
+
+			this._calendar.render();
+		}
+
 	}
 
 	/** 
