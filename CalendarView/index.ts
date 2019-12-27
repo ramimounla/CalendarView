@@ -38,22 +38,15 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			plugins: [dayGridPlugin],
 			defaultView: 'dayGridMonth',
 			firstDay: 1,
-			eventRender: function(info) {
-				var tooltip = new Tooltip(info.el, {
-				  title: info.event.extendedProps.description,
-				  placement: 'top',
-				  trigger: 'hover',
-				  container: 'body'
-				});
-			  }
+			eventRender: function (info) {
+				// 	var tooltip = new Tooltip(info.el, {
+				// 	  title: info.event.extendedProps.description,
+				// 	  placement: 'top',
+				// 	  trigger: 'hover',
+				// 	  container: 'body'
+				// 	});
+			}
 		});
-
-		// _calendar.addEvent({ // this object will be "parsed" into an Event Object
-		// 	title: 'Business Review', // a property!
-		// 	start: '2019-12-27 16:00:00', // a property!
-		// 	end: '2019-12-27', // a property! ** see important note below about 'end' **
-		// 	className: "recurring"
-		// });
 
 		this._calendar.render();
 
@@ -74,9 +67,10 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
 				this._calendar.addEvent({
 					title: appointmentsRecordSet.records[recordId].getValue("Subject").toString(), // a property!
-					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"), 
-					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"),
-					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ","-")
+					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD HH:mm:00"),
+					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD HH:mm:00"),
+					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ", "-"),
+					description: appointmentsRecordSet.records[recordId].getValue("Description").toString()
 				});
 			});
 
