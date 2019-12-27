@@ -3,6 +3,9 @@ import DataSetInterfaces = ComponentFramework.PropertyHelper.DataSetApi;
 import { Calendar, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import 'moment'
+// import {Tooltip} from 'tooltip-js'
+const Tooltip = require('tooltip-js');
+
 import moment = require("moment");
 type DataSet = ComponentFramework.PropertyTypes.DataSet;
 
@@ -34,7 +37,15 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 		this._calendar = new Calendar(this._divCalendar, {
 			plugins: [dayGridPlugin],
 			defaultView: 'dayGridMonth',
-			firstDay: 1
+			firstDay: 1,
+			eventRender: function(info) {
+				var tooltip = new Tooltip(info.el, {
+				  title: info.event.extendedProps.description,
+				  placement: 'top',
+				  trigger: 'hover',
+				  container: 'body'
+				});
+			  }
 		});
 
 		// _calendar.addEvent({ // this object will be "parsed" into an Event Object
@@ -56,8 +67,6 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 	 */
 	public updateView(context: ComponentFramework.Context<IInputs>): void {
 		// Add code to update control view
-
-
 		if (!context.parameters.appointmentsDataSet.loading) {
 
 			let appointmentsRecordSet = context.parameters.appointmentsDataSet;
@@ -69,46 +78,6 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD H:mm:00"),
 					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ","-")
 				});
-
-				
-				// // this._calendar.addEvent({ // this object will be "parsed" into an Event Object
-				// // 	title: 'Business Review', // a property!
-				// // 	start: '2019-12-27', // a property!
-				// // 	end: '2019-12-27', // a property! ** see important note below about 'end' **
-				// // 	className: "recurring"
-				// // });
-				// 	if (column.name == "tag") {
-				// 		var tagDiv = <HTMLSpanElement>document.createElement("div");
-				// 		tagDiv.className = "tags";
-				// 		var tags = (<string>recordSet.records[recordId].getValue(column.name)).split(";");
-
-				// 		tags.forEach(tag => {
-				// 			var tagSpan = <HTMLSpanElement>document.createElement("span");
-				// 			tagSpan.className = "tag";
-				// 			tagSpan.innerText = tag;
-
-				// 			if (tag == "urgent")
-				// 				tagSpan.style.background = "#E51400";
-				// 			if (tag == "blocked")
-				// 				tagSpan.style.background = "#FF9642";
-				// 			if (tag == "green")
-				// 				tagSpan.style.background = "#668D3C";
-				// 			if (tag == "stage gate")
-				// 				tagSpan.style.background = "#007996";
-
-				// 			tagDiv.appendChild(tagSpan);
-				// 		});
-
-				// 		recordDiv.appendChild(tagDiv);
-				// 	}
-				// 	else {
-				// 		var span = <HTMLSpanElement>document.createElement("span");
-				// 		span.className = "element";
-				// 		span.innerText = <string>recordSet.records[recordId].getValue(column.name);
-				// 		recordDiv.appendChild(span);
-				// 	}
-
-				// });
 			});
 
 			this._calendar.render();

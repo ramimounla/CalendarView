@@ -15,7 +15,8 @@
     "@types/powerapps-component-framework": "^1.2.0",
     "fullcalendar": "^3.10.1",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "tooltip-js": "^3.0.0"
   },
   "devDependencies": {
     "@types/fullcalendar": "^3.8.0",
