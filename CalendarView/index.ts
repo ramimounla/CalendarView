@@ -2,12 +2,9 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import DataSetInterfaces = ComponentFramework.PropertyHelper.DataSetApi;
 import { Calendar, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import 'moment'
 // import {Tooltip} from 'tooltip-js'
 const Tooltip = require('tooltip-js');
-
 import moment = require("moment");
-type DataSet = ComponentFramework.PropertyTypes.DataSet;
 
 export class CalendarView implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
