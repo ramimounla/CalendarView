@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 // import {Tooltip} from 'tooltip-js'
 const Tooltip = require('tooltip-js');
 import moment = require("moment");
+import * as $ from 'jquery';
 
 export class CalendarView implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -36,12 +37,7 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			defaultView: 'dayGridMonth',
 			firstDay: 1,
 			eventRender: function (info) {
-				// 	var tooltip = new Tooltip(info.el, {
-				// 	  title: info.event.extendedProps.description,
-				// 	  placement: 'top',
-				// 	  trigger: 'hover',
-				// 	  container: 'body'
-				// 	});
+				info.el.setAttribute("title",info.event.extendedProps["description"]);
 			}
 		});
 
@@ -64,8 +60,8 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
 				this._calendar.addEvent({
 					title: appointmentsRecordSet.records[recordId].getValue("Subject").toString(), // a property!
-					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD HH:mm:00"),
-					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "DD/MM/YYYY H:mm").format("YYYY-MM-DD HH:mm:00"),
+					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
+					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
 					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ", "-"),
 					description: appointmentsRecordSet.records[recordId].getValue("Description").toString()
 				});
