@@ -37,8 +37,9 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			defaultView: 'dayGridMonth',
 			firstDay: 1,
 			eventRender: function (info) {
-				info.el.setAttribute("title",info.event.extendedProps["description"]);
-			}
+				info.el.setAttribute("title", info.event.extendedProps["description"]);
+			},
+			contentHeight: "auto"
 		});
 
 		this._calendar.render();
@@ -59,19 +60,34 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 
 			let appointmentsRecordSet = context.parameters.appointmentsDataSet;
 
+			this._calendar.removeAllEvents();
 			appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
 				this._calendar.addEvent({
 					title: appointmentsRecordSet.records[recordId].getValue("subject").toString(), // a property!
 					start: moment(appointmentsRecordSet.records[recordId].getValue("scheduledstart").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
 					end: moment(appointmentsRecordSet.records[recordId].getValue("scheduledend").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
-					className: appointmentsRecordSet.records[recordId].getValue("new_appointmenttype").toString().toLowerCase().replace(" ", "-"),
-					description: appointmentsRecordSet.records[recordId].getValue("description").toString()
+					className: this.mapValueToText(appointmentsRecordSet.records[recordId].getValue("new_appointmenttype") != null ? appointmentsRecordSet.records[recordId].getValue("new_appointmenttype").toString().toLowerCase().replace(" ", "-") : ""),
+					description: appointmentsRecordSet.records[recordId].getValue("description") != null ? appointmentsRecordSet.records[recordId].getValue("description").toString() : ""
 				});
 			});
 
 			this._calendar.render();
 		}
 
+	}
+
+
+	//todo remove the hard coding and turn into reusable component
+	private mapValueToText(value: string): string {
+		if (value === "100000001") {
+			return "stage-gate";
+		}
+		else if (value === "100000002") {
+			return "urgent";
+		}
+		else {
+			return "recurring";
+		}
 	}
 
 	/** 
