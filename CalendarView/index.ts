@@ -44,6 +44,8 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 		this._calendar.render();
 
 		container.appendChild(this._divCalendar);
+
+		//TODO define the schema name for the different attributes from the input
 	}
 
 
@@ -59,11 +61,11 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 
 			appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
 				this._calendar.addEvent({
-					title: appointmentsRecordSet.records[recordId].getValue("Subject").toString(), // a property!
-					start: moment(appointmentsRecordSet.records[recordId].getValue("Start Time").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
-					end: moment(appointmentsRecordSet.records[recordId].getValue("End Time").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
-					className: appointmentsRecordSet.records[recordId].getValue("Appointment Type").toString().toLowerCase().replace(" ", "-"),
-					description: appointmentsRecordSet.records[recordId].getValue("Description").toString()
+					title: appointmentsRecordSet.records[recordId].getValue("subject").toString(), // a property!
+					start: moment(appointmentsRecordSet.records[recordId].getValue("scheduledstart").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
+					end: moment(appointmentsRecordSet.records[recordId].getValue("scheduledend").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
+					className: appointmentsRecordSet.records[recordId].getValue("new_appointmenttype").toString().toLowerCase().replace(" ", "-"),
+					description: appointmentsRecordSet.records[recordId].getValue("description").toString()
 				});
 			});
 
