@@ -39,7 +39,7 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			eventRender: function (info) {
 				info.el.setAttribute("title", info.event.extendedProps["description"]);
 			},
-			contentHeight: "auto"
+			contentHeight: 650
 		});
 
 		this._calendar.render();
