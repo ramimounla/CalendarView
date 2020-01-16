@@ -42,6 +42,26 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 			contentHeight: 530
 		});
 
+		//New line to test on load
+		// if (!context.parameters.appointmentsDataSet.loading) {
+
+		// 	let appointmentsRecordSet = context.parameters.appointmentsDataSet;
+
+		// 	this._calendar.removeAllEvents();
+		// 	appointmentsRecordSet.sortedRecordIds.forEach(recordId => {
+		// 		this._calendar.addEvent({
+		// 			title: appointmentsRecordSet.records[recordId].getValue("subject").toString(), // a property!
+		// 			start: moment(appointmentsRecordSet.records[recordId].getValue("scheduledstart").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
+		// 			end: moment(appointmentsRecordSet.records[recordId].getValue("scheduledend").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
+		// 			className: this.mapValueToText(appointmentsRecordSet.records[recordId].getValue("new_appointmenttype") != null ? appointmentsRecordSet.records[recordId].getValue("new_appointmenttype").toString().toLowerCase().replace(" ", "-") : ""),
+		// 			description: appointmentsRecordSet.records[recordId].getValue("description") != null ? appointmentsRecordSet.records[recordId].getValue("description").toString() : "",
+		// 			url: eval("Xrm.Utility.getGlobalContext().getCurrentAppUrl()") + "&pagetype=entityrecord&etn=" + appointmentsRecordSet.records[recordId].getNamedReference().etn + "&id=" + appointmentsRecordSet.records[recordId].getNamedReference().id
+		// 		});
+		// 	});
+
+		// 	this._calendar.render();
+		// }
+
 		this._calendar.render();
 
 		container.appendChild(this._divCalendar);
@@ -67,7 +87,8 @@ export class CalendarView implements ComponentFramework.StandardControl<IInputs,
 					start: moment(appointmentsRecordSet.records[recordId].getValue("scheduledstart").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
 					end: moment(appointmentsRecordSet.records[recordId].getValue("scheduledend").toString(), "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:00"),
 					className: this.mapValueToText(appointmentsRecordSet.records[recordId].getValue("new_appointmenttype") != null ? appointmentsRecordSet.records[recordId].getValue("new_appointmenttype").toString().toLowerCase().replace(" ", "-") : ""),
-					description: appointmentsRecordSet.records[recordId].getValue("description") != null ? appointmentsRecordSet.records[recordId].getValue("description").toString() : ""
+					description: appointmentsRecordSet.records[recordId].getValue("description") != null ? appointmentsRecordSet.records[recordId].getValue("description").toString() : "",
+					url: eval("Xrm.Utility.getGlobalContext().getCurrentAppUrl()") + "&pagetype=entityrecord&etn=" + eval("appointmentsRecordSet_1.records[recordId].getNamedReference()._etn") + "&id=" + appointmentsRecordSet.records[recordId].getNamedReference().id
 				});
 			});
 
