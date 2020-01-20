@@ -3,6 +3,9 @@ A custom monthly calendar view that provides a starting point for furhter custom
 
 Leverages the [FullCalendar](https://fullcalendar.io) JavaScript library.
 
+## Release
+Download the latest release from the [release tab](../../releases/latest)
+
 # Screenshot
 ![PCF Custom Calendar View PCF Control Screenshot with Event Color Coding](https://github.com/ramimounla/CalendarView/blob/master/Screenshots/Calendar%20view.png?raw=true)
 
