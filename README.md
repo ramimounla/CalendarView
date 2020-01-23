@@ -7,7 +7,7 @@ Leverages the [FullCalendar](https://fullcalendar.io) JavaScript library.
 Download the latest release from the [release tab](../../releases/latest)
 
 # Screenshot
-![PCF Custom Calendar View PCF Control Screenshot with Event Color Coding](https://github.com/ramimounla/CalendarView/blob/master/Screenshots/Calendar%20view.png?raw=true)
+![PCF Custom Calendar View PCF Control Screenshot with Event Color Coding](../../blob/master/Screenshots/Calendar%20view.png?raw=true)
 
 # Instructions
 Clone the respository then run the following command then run the following commands
